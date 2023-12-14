@@ -1,0 +1,108 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F255BD9-D6AC-4236-9699-68745B11648B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{2614EA8E-65BE-4741-A006-F017691A6861}"
+	ProjectSection(SolutionItems) = preProject
+		BuildPackages.cmd = BuildPackages.cmd
+		CleanPackages.cmd = CleanPackages.cmd
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		nuget.config = nuget.config
+		Solution.Build.Folders.props = Solution.Build.Folders.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{BC1E4CE5-939B-4656-9945-9D340370FF64}"
+	ProjectSection(SolutionItems) = preProject
+		build\AssemblyInfo.Global.cs = build\AssemblyInfo.Global.cs
+		build\BuildPackages.cmd = build\BuildPackages.cmd
+		build\Project.Build.props = build\Project.Build.props
+		build\Project.Build.targets = build\Project.Build.targets
+		build\Solution.Build.props = build\Solution.Build.props
+		build\Solution.Build.targets = build\Solution.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Actions", "GitHub Actions", "{124B8B53-ED96-4C4C-80D6-8D42DB94EFE0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41209B06-9838-46F0-BF7E-FB938D3451F3}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+		src\Directory.Build.targets = src\Directory.Build.targets
+		src\Project.Build.References.props = src\Project.Build.References.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileWatcherService", "src\FileWatcherService\FileWatcherService.csproj", "{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}"
+EndProject
+Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "FileWatcherService.Setup.WiX", "src\FileWatcherService.Setup.WiX\FileWatcherService.Setup.WiX\FileWatcherService.Setup.WiX.wixproj", "{C9120026-2BC0-4C16-A6BD-A596E8760A5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|x64.Build.0 = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Debug|x86.Build.0 = Debug|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|ARM64.Build.0 = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|x64.ActiveCfg = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|x64.Build.0 = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|x86.ActiveCfg = Release|Any CPU
+		{B8B6212D-37FD-466A-B8E8-52F3EFEBFFD0}.Release|x86.Build.0 = Release|Any CPU
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|ARM64.Build.0 = Debug|ARM64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|x64.ActiveCfg = Debug|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|x64.Build.0 = Debug|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|x86.ActiveCfg = Debug|x86
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Debug|x86.Build.0 = Debug|x86
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|Any CPU.ActiveCfg = Release|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|Any CPU.Build.0 = Release|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|ARM64.Build.0 = Release|ARM64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|x64.ActiveCfg = Release|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|x64.Build.0 = Release|x64
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|x86.ActiveCfg = Release|x86
+		{C9120026-2BC0-4C16-A6BD-A596E8760A5F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2614EA8E-65BE-4741-A006-F017691A6861} = {7F255BD9-D6AC-4236-9699-68745B11648B}
+		{BC1E4CE5-939B-4656-9945-9D340370FF64} = {2614EA8E-65BE-4741-A006-F017691A6861}
+		{41209B06-9838-46F0-BF7E-FB938D3451F3} = {2614EA8E-65BE-4741-A006-F017691A6861}
+		{124B8B53-ED96-4C4C-80D6-8D42DB94EFE0} = {2614EA8E-65BE-4741-A006-F017691A6861}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F53A7AAF-D6BF-428B-A3BB-5EA810F7AD0F}
+	EndGlobalSection
+EndGlobal

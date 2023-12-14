@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service-with-installer
+  -->
+
+<!-- Define the variables in "$(var.*) expressions" -->
+<?define Name = "FileWatcherService" ?>
+<?define Manufacturer = "mahara" ?>
+<?define Version = "1.0.0.0" ?>
+<?define UpgradeCode = "EBB1EF66-ED95-4D9F-BF2C-5F770DA1E261" ?>
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Name="$(Name)"
+             Manufacturer="$(Manufacturer)"
+             Version="$(Version)"
+             UpgradeCode="$(var.UpgradeCode)"
+             Compressed="true">
+
+        <!-- Allow upgrades and prevent downgrades -->
+        <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
+
+        <!-- Define the directory structure -->
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFiles64Folder">
+
+                <!-- Create a folder inside program files -->
+                <Directory Id="ROOTDIRECTORY" Name="$(var.Manufacturer)">
+
+                    <!-- Create a folder within the parent folder given the name -->
+                    <Directory Id="INSTALLFOLDER" Name="$(Name)" />
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <!-- The files inside this DirectoryRef are linked to
+             the FileWatcherService directory via INSTALLFOLDER -->
+        <DirectoryRef Id="INSTALLFOLDER">
+
+            <!-- Create a single component which is the FileWatcherService.exe file -->
+            <Component Id="ServiceExecutable" Bitness="always64">
+
+                <!-- Copies the FileWatcherService.exe file using the
+                     project reference preprocessor variables -->
+                <File Id="FileWatcherService.exe"
+                      Source="C:\TEMP\TEMP\FileWatcherService\FileWatcherService.exe"
+                      KeyPath="true" />
+                <!--<File Id="FileWatcherService.exe"
+                      Source="$(var.FileWatcherService.TargetDir)publish\FileWatcherService.exe"
+                      KeyPath="true" />-->
+
+                <File Id="appsettings.json"
+                      Source="C:\TEMP\TEMP\FileWatcherService\appsettings.json" />
+
+                <!-- Remove all files from the INSTALLFOLDER on uninstall -->
+                <RemoveFile Id="ALLFILES" Name="*.*" On="both" />
+
+                <!-- Tell WiX to install the Service -->
+                <ServiceInstall Id="ServiceInstaller"
+                                Type="ownProcess"
+                                Name="FileWatcherService"
+                                DisplayName="$(Name)"
+                                Description="FileWatcherService"
+                                Start="auto"
+                                ErrorControl="normal" />
+
+                <!-- Tell WiX to start the Service -->
+                <ServiceControl Id="StartService"
+                                Start="install"
+                                Stop="both"
+                                Remove="uninstall"
+                                Name="FileWatcherService"
+                                Wait="true" />
+            </Component>
+        </DirectoryRef>
+
+        <!-- Tell WiX to install the files -->
+        <Feature Id="Service" Title="FileWatcherService Setup" Level="1">
+            <ComponentRef Id="ServiceExecutable" />
+        </Feature>
+
+    </Package>
+</Wix>

@@ -1,0 +1,15 @@
+<Project Sdk="WixToolset.Sdk/4.0.4">
+
+  <!--
+    https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service-with-installer
+  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FileWatcherService\FileWatcherService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="$(BuildConfigurationFolderPath)AssemblyInfo.Global.cs" Link="Properties\AssemblyInfo.Global.cs" />
+  </ItemGroup>
+
+</Project>

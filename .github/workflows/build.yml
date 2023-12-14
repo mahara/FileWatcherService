@@ -1,0 +1,74 @@
+# https://github.com/actions/setup-dotnet
+
+name: Build
+
+on: [ push, pull_request ]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+
+  Test:
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        project:
+          - 'FileWatcherService.sln'
+        framework: [net8.0-windows]
+        configuration: [Release]
+        exclude:
+          - os: ubuntu-latest
+            framework: net48
+          - os: macos-latest
+            framework: net48
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      trx_file_name: 'TestResults.trx'
+      md_file_name: 'TestResults.md' # Report file name for LiquidTestReports.Markdown
+
+    steps:
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 8.0 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+        if: ${{ startswith(matrix.framework, 'net8.') }}
+
+      - name: Setup Environment Variables
+        run: |
+          $project_name = [System.IO.Path]::GetFileNameWithoutExtension("${{matrix.project}}")
+          $test_results_artifact_name = "TestResults_${project_name}_${{matrix.os}}_${{matrix.framework}}_${{matrix.configuration}}"
+          $working_directory = "$env:GITHUB_WORKSPACE"
+          Write-Host "Project Name: $project_name"
+          Write-Host "Test Results Artifact Name: $test_results_artifact_name"
+          Write-Host "Working Directory: $working_directory"
+          Write-Output "project_name=$project_name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8NoBOM -Append
+          Write-Output "test_results_artifact_name=$test_results_artifact_name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8NoBOM -Append
+          # Set the Azure DevOps default working directory env variable, so our tests only need to deal with a single env variable
+          Write-Output "SYSTEM_DEFAULTWORKINGDIRECTORY=$working_directory" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8NoBOM -Append
+          # Title for LiquidTestReports.Markdown
+          Write-Output "title=Test Run for $project_name - ${{matrix.os}} - ${{matrix.framework}}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8NoBOM -Append
+        shell: pwsh
+
+      - name: Build
+        run: |
+          dotnet build ${{matrix.project}} --configuration ${{matrix.configuration}} --framework ${{matrix.framework}}
+
+      - name: Test
+        run: |
+          dotnet test ${{matrix.project}} --configuration ${{matrix.configuration}} --framework ${{matrix.framework}} --no-build --no-restore --blame-hang --blame-hang-dump-type mini --blame-hang-timeout 10minutes --logger:"console;verbosity=detailed" --logger:"trx;LogFileName=${{env.trx_file_name}}" --logger:"liquid.md;LogFileName=${{env.md_file_name}};Title=${{env.title}};" --results-directory:"${{github.workspace}}/${{env.test_results_artifact_name}}/${{env.project_name}}"
+
+      - name: Upload Test Results Artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{always()}}
+        with:
+          name: '${{env.test_results_artifact_name}}'
+          path: '${{github.workspace}}/${{env.test_results_artifact_name}}'
